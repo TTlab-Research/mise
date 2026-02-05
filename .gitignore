@@ -1,0 +1,27 @@
+# Rust build artifacts
+/target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# IDE & Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+.env.local
+.envrc
+
+# Zed
+.zed
+
+# OS
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Development
+*.log
+debug/

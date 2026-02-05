@@ -1,0 +1,8 @@
+id = "mise"
+name = "Mise"
+version = "0.1.0"
+schema_version = 1
+license = "MIT"
+authors = ["Franco Tampieri <franco.tampieri@ttlab.it>"]
+description = "Syntax highlighting and utilities for mise (mise-en-place) configuration files"
+repository = "https://github.com/TTlab-Research/zed-mise"
