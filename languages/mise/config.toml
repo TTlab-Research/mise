@@ -1,0 +1,4 @@
+name = "Mise"
+grammar = "toml"
+path_suffixes = ["mise.toml", ".mise.toml", "mise.local.toml", ".mise.local.toml"]
+line_comments = ["#"]
