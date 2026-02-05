@@ -1,0 +1,17 @@
+[package]
+name = "zed-mise"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Mise integration for Zed IDE"
+authors = ["TTlab <info@ttlab.it>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+zed_extension_api = "0.5"
+
+[profile.release]
+opt-level = "s"
+lto = true
