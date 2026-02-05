@@ -25,3 +25,8 @@ Thumbs.db
 # Development
 *.log
 debug/
+
+# Zed extension builds
+*.wasm
+package-lock.json
+mise.toml
