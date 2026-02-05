@@ -9,15 +9,12 @@ repository = "https://github.com/TTlab-Research/zed-mise"
 
 [slash_commands.mise-init]
 description = "Generate mise.toml templates for various languages"
-tooltip = "Create mise configuration templates"
 requires_argument = false
 
 [slash_commands.mise-task]
 description = "Manage mise task templates"
-tooltip = "Add or export mise tasks"
 requires_argument = false
 
 [slash_commands.mise-env]
 description = "View mise environment information"
-tooltip = "Show active mise tools and environment"
 requires_argument = false
