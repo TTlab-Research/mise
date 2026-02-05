@@ -112,4 +112,4 @@ Found a bug or have a feature idea? Open an issue on [GitHub](https://github.com
 
 ## License
 
-MIT License - Copyright (c) 2024-2025 Franco Tampieri - TTlab
+MIT License - Copyright (c) 2024-2026 Franco Tampieri - TTlab
