@@ -1,0 +1,62 @@
+# Next.js full-stack project with Python backend
+# https://mise.jdx.dev
+
+[tools]
+node = "22"
+python = "3.12"
+uv = "latest"
+
+[env]
+# Next.js configuration
+NODE_ENV = "development"
+NEXT_TELEMETRY_DISABLED = "1"
+
+# Python configuration
+UV_PROJECT_ENVIRONMENT = ".venv"
+PYTHONDONTWRITEBYTECODE = "1"
+
+[tasks.install]
+description = "Install all dependencies"
+run = """
+npm install && uv sync
+"""
+
+[tasks.dev]
+description = "Run development servers"
+run = """
+npm run dev & uv run python -m uvicorn api:app --reload
+"""
+depends = ["install"]
+
+[tasks.build]
+description = "Build for production"
+run = """
+npm run build && uv run python -m pip install -e .
+"""
+
+[tasks.test]
+description = "Run all tests"
+run = """
+npm test && uv run pytest
+"""
+
+[tasks.lint]
+description = "Lint all code"
+run = """
+npm run lint && uv run ruff check .
+"""
+
+[tasks.format]
+description = "Format all code"
+run = """
+npm run format && uv run ruff format .
+"""
+
+[tasks.typecheck]
+description = "Type check everything"
+run = """
+npx tsc --noEmit && uv run basedpyright
+"""
+
+[hooks.enter]
+run = "npm install --quiet && uv sync --quiet"

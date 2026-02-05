@@ -1,0 +1,45 @@
+# Python project with uv package manager
+# https://mise.jdx.dev
+
+[tools]
+python = "3.12"
+uv = "latest"
+
+[env]
+# Python environment variables
+UV_PROJECT_ENVIRONMENT = ".venv"
+VIRTUAL_ENV = "{{ cwd }}/.venv"
+PYTHONDONTWRITEBYTECODE = "1"
+
+[tasks.install]
+description = "Install dependencies with uv"
+run = "uv sync"
+
+[tasks.dev]
+description = "Run development server"
+run = "uv run python -m uvicorn main:app --reload"
+depends = ["install"]
+
+[tasks.test]
+description = "Run tests with pytest"
+run = "uv run pytest"
+
+[tasks.lint]
+description = "Run linting with ruff"
+run = "uv run ruff check ."
+
+[tasks.format]
+description = "Format code with ruff"
+run = "uv run ruff format ."
+
+[tasks.typecheck]
+description = "Run type checking"
+run = "uv run basedpyright"
+
+[tasks.clean]
+description = "Clean build artifacts"
+run = "rm -rf .venv build dist *.egg-info"
+
+[hooks.enter]
+description = "Sync dependencies on directory entry"
+run = "uv sync --quiet"

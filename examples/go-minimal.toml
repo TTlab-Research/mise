@@ -1,0 +1,34 @@
+# Minimal Go project
+# https://mise.jdx.dev
+
+[tools]
+go = "1.23"
+golangci-lint = "latest"
+
+[env]
+GOPATH = "{{ env.HOME }}/go"
+CGO_ENABLED = "1"
+
+[tasks.build]
+description = "Build Go binary"
+run = "go build -o bin/ ./..."
+
+[tasks.test]
+description = "Run Go tests"
+run = "go test -v ./..."
+
+[tasks.lint]
+description = "Run golangci-lint"
+run = "golangci-lint run ./..."
+
+[tasks.tidy]
+description = "Tidy go.mod"
+run = "go mod tidy"
+
+[tasks.run]
+description = "Run the application"
+run = "go run ."
+
+[tasks.coverage]
+description = "Generate test coverage report"
+run = "go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out"

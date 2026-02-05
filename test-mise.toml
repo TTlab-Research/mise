@@ -1,0 +1,26 @@
+# Test mise.toml per verificare syntax highlighting e slash commands
+
+[tools]
+python = "3.12"
+node = "22"
+rust = "stable"
+
+[env]
+NODE_ENV = "development"
+VIRTUAL_ENV = "{{ cwd }}/.venv"
+MY_VAR = "test"
+
+[tasks.dev]
+description = "Run development server"
+run = "npm run dev"
+depends = ["install"]
+
+[tasks.test]
+run = "pytest"
+
+[tasks.build]
+description = "Build release"
+run = "cargo build --release"
+
+[hooks.enter]
+run = "uv sync --quiet"
