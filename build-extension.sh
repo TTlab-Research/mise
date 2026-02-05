@@ -32,16 +32,17 @@ echo "📦 Building release binary..."
 cargo build --release
 
 # Determine binary name based on OS
+# Note: Rust converts package name "zed-mise" to "zed_mise" for the binary
 OS=$(uname -s)
 case "$OS" in
     Darwin)
-        BINARY="target/release/libmise.dylib"
+        BINARY="target/release/libzed_mise.dylib"
         ;;
     Linux)
-        BINARY="target/release/libmise.so"
+        BINARY="target/release/libzed_mise.so"
         ;;
     MINGW*|MSYS*)
-        BINARY="target/release/mise.dll"
+        BINARY="target/release/zed_mise.dll"
         ;;
     *)
         echo "❌ Unsupported OS: $OS"

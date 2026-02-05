@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build extension using Docker (no local Rust required)
+# Build extension using Docker/Podman (no local Rust required)
 # Usage: ./build-docker.sh
 
 set -e
@@ -7,54 +7,63 @@ set -e
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_DIR"
 
-echo "🐳 Building Mise Zed Extension in Docker..."
-echo "=============================================="
+echo "🐳 Building Mise Zed Extension in Container..."
+echo "================================================"
 echo ""
 
-# Check if Docker is available
-if ! command -v docker &> /dev/null; then
-    echo "❌ Error: Docker is not installed"
-    echo "Install Docker from: https://www.docker.com/products/docker-desktop"
+# Detect container runtime
+CONTAINER_CMD=""
+if command -v docker &> /dev/null; then
+    CONTAINER_CMD="docker"
+    echo "✅ Using Docker"
+elif command -v podman &> /dev/null; then
+    CONTAINER_CMD="podman"
+    echo "✅ Using Podman"
+else
+    echo "❌ Error: Neither Docker nor Podman is installed"
+    echo "Options:"
+    echo "  1. Install Docker: https://www.docker.com/products/docker-desktop"
+    echo "  2. Install Podman: brew install podman"
     exit 1
 fi
 
-# Build Docker image
-echo "📦 Building Docker image..."
-docker build -t zed-mise-builder:latest .
+echo ""
+
+# Build container image
+echo "📦 Building container image..."
+$CONTAINER_CMD build -t zed-mise-builder:latest .
 
 # Run build in container
 echo ""
 echo "🔨 Compiling in container..."
-docker run --rm \
+$CONTAINER_CMD run --rm \
     -v "$PROJECT_DIR:/extension" \
+    -w /extension \
     zed-mise-builder:latest
 
 # Check result
-OS=$(uname -s)
-case "$OS" in
-    Darwin)
-        BINARY="target/release/libmise.dylib"
-        ;;
-    Linux)
-        BINARY="target/release/libmise.so"
-        ;;
-    *)
-        echo "⚠️  OS: $OS (binary extension may not work on this platform)"
-        BINARY="target/release/libmise.so"
-        ;;
-esac
+# Note: When building in container, we always get Linux binary
+# Zed will use it regardless of platform in dev mode
+# Package "zed-mise" becomes "zed_mise" in Rust binary names
+BINARY="target/release/libzed_mise.so"
 
 if [ -f "$BINARY" ]; then
     SIZE=$(ls -lh "$BINARY" | awk '{print $5}')
     echo ""
     echo "✅ Build successful!"
     echo "📍 Binary: $BINARY ($SIZE)"
+    echo "📝 Note: Container build produces Linux binary"
+    echo "   In development mode, Zed can use this on any platform"
     echo ""
     echo "📤 Next: Load in Zed"
     echo "  1. Open Zed"
     echo "  2. Cmd+Shift+P → 'Extensions: Install Dev Extension'"
     echo "  3. Select: $PROJECT_DIR"
+    echo ""
+    echo "✨ The extension should load and work!"
 else
     echo "❌ Build failed: binary not found at $BINARY"
+    echo "📂 Available files in target/release/:"
+    ls -la target/release/ | grep -E "libmise|mise" || echo "   (none found)"
     exit 1
 fi
