@@ -1,8 +1,8 @@
 id = "mise"
-name = "Mise"
+name = "Mise-en-Place"
 version = "0.2.0"
 schema_version = 1
 license = "MIT"
 authors = ["Franco Tampieri <franco.tampieri@ttlab.it>"]
-description = "Syntax highlighting and configuration support for mise (mise-en-place) files"
+description = "Professional syntax highlighting and configuration support for mise-en-place (mise) files"
 repository = "https://github.com/TTlab-Research/zed-mise"
