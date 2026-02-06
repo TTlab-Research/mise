@@ -15,8 +15,7 @@ Cargo.lock
 .envrc
 
 # Zed
-.zed/*
-!.zed/tasks.json
+.zed/
 
 # OS
 Thumbs.db
