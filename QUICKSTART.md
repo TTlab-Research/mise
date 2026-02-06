@@ -26,26 +26,30 @@ ln -sf /path/to/zed-mise ~/.config/zed/extensions/mise
 
 ## Testing Syntax Highlighting
 
-Create a test configuration file:
-
+### Automated Tests
 ```bash
-cat > test.mise.toml << 'EOF'
-[tools]
-python = "3.12"
-node = "22"
-
-[env]
-NODE_ENV = "development"
-
-[tasks.dev]
-run = "npm run dev"
-EOF
+./tests/test-extension.sh
 ```
 
-Open the file in Zed. You should see:
+This verifies:
+- Extension compilation
+- Configuration validity
+- File pattern registration
+- Test file creation
+
+### Manual Verification
+
+Open test file in Zed:
+```bash
+zed tests/test.mise.toml
+```
+
+You should see:
 - Color-coded section headers ([tools], [env], [tasks])
 - Highlighted keywords and properties
 - Environment variables in distinct color
+
+See [tests/README.md](tests/README.md) for complete testing guide.
 
 ## Using Configuration Templates
 

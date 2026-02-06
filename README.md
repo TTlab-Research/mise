@@ -101,13 +101,21 @@ Instead of manual creation, use Zed's native task support:
 
 ### Testing
 
-To test the extension:
+Run the automated test suite:
+
+```bash
+./tests/test-extension.sh
+```
+
+For manual testing in Zed:
 
 1. Build: `cargo build --release`
-2. Open Zed and press `Cmd+Shift+P` → "Reload Extensions" or restart Zed
-3. Create a test file: `test.mise.toml`
+2. Reload extensions: `Cmd+Shift+P` → "Reload Extensions"
+3. Open test files: `tests/test.mise.toml`
 4. Verify syntax highlighting with colors
-5. Test in your own projects: open any `mise.toml` file
+5. Test Zed tasks: `Cmd+Shift+P` → search "mise:"
+
+See [tests/README.md](tests/README.md) for comprehensive testing guide.
 
 ### Architecture
 
